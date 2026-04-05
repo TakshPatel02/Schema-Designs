@@ -138,6 +138,19 @@ Allowed status enum values:
 - picked_up
 - delivered
 
+### 8. Review
+
+Stores customer feedback for completed orders.
+
+Fields:
+
+- order_id (ObjectId ref Order, required)
+- customer_id (ObjectId ref User, required)
+- restaurant_id (ObjectId ref Restaurant, required)
+- rating (Number, required, min 1, max 5)
+- comment (String, optional)
+- timestamps enabled
+
 ## Relationship Summary
 
 - MenuItem belongs to one Restaurant via restaurant_id.
@@ -145,6 +158,7 @@ Allowed status enum values:
 - Order references one OrderStatusField for lifecycle timestamps.
 - OrderItem belongs to one Order and one MenuItem.
 - DeliveryAssignment links one Order with one delivery agent (User).
+- Review links one Order, one customer (User), and one Restaurant.
 
 ## Diagram
 

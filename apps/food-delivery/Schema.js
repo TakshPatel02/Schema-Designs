@@ -117,12 +117,12 @@ const orderSchema = new Schema({
         ref: 'OrderStatusField',
         required: true
     },
-    payment_method:{
+    payment_method: {
         enum: ['credit_card', 'debit_card', 'paypal', 'cash_on_delivery'],
         type: String,
         required: true
     },
-    delivery_instructions:{
+    delivery_instructions: {
         type: String
     },
 }, { timestamps: true });
@@ -130,21 +130,21 @@ const orderSchema = new Schema({
 const Order = model('Order', orderSchema);
 
 const orderItemSchema = new Schema({
-    order_id:{
+    order_id: {
         type: Schema.Types.ObjectId,
         ref: 'Order',
         required: true
     },
-    menu_item_id:{
+    menu_item_id: {
         type: Schema.Types.ObjectId,
         ref: 'MenuItem',
         required: true
     },
-    quantity:{
+    quantity: {
         type: Number,
         required: true
     },
-    price:{
+    price: {
         type: Number,
         required: true
     }
@@ -153,31 +153,60 @@ const orderItemSchema = new Schema({
 const OrderItem = model('OrderItem', orderItemSchema);
 
 const deliveryAssignmentSchema = new Schema({
-    order_id:{
+    order_id: {
         type: Schema.Types.ObjectId,
         ref: 'Order',
         required: true
     },
-    delivery_agent_id:{
+    delivery_agent_id: {
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
-    status:{
+    status: {
         enum: ['assigned', 'picked_up', 'delivered'],
         type: String,
         required: true
     },
-    assigned_at:{
+    assigned_at: {
         type: Date,
         default: Date.now
     },
-    picked_up_at:{
+    picked_up_at: {
         type: Date
     },
-    delivered_at:{
+    delivered_at: {
         type: Date
     },
 }, { timestamps: true });
 
 const DeliveryAssignment = model('DeliveryAssignment', deliveryAssignmentSchema);
+
+const reviewSchema = new Schema({
+    order_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'Order',
+        required: true
+    },
+    customer_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
+    restaurant_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'Restaurant',
+        required: true
+    },
+    rating: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+    },
+    comment: {
+        type: String
+    }
+}, { timestamps: true });
+
+const Review = model('Review', reviewSchema);

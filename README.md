@@ -26,6 +26,7 @@ The Food Delivery app includes schema definitions for:
 - Order
 - OrderItem
 - DeliveryAssignment
+- Review (customer feedback and ratings)
 
 ## Tech Stack
 
