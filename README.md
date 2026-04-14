@@ -6,6 +6,7 @@ This repository contains database schema design practice apps.
 
 - apps/book-store: Mongoose schemas for a bookstore and borrowing system.
 - apps/food-delivery: Mongoose schemas for a food delivery platform.
+- apps/SaaS-project-management-system: Mongoose schemas for a team-based project management system.
 
 ## Current Focus
 
@@ -27,6 +28,18 @@ The Food Delivery app includes schema definitions for:
 - OrderItem
 - DeliveryAssignment
 - Review (customer feedback and ratings)
+
+The SaaS Project Management app includes schema definitions for:
+
+- User
+- Team
+- TeamMember
+- Project
+- Task
+- TaskAssignees
+- Comment
+- ActivityLog
+- Invitation
 
 ## Tech Stack
 

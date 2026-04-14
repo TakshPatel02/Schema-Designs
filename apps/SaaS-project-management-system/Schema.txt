@@ -1,0 +1,99 @@
+users [icon: user, color: blue] {
+  id string pk
+  name string
+  email string unique
+  password string
+  role enum["admin", "user"]
+  isVerified boolean
+  created_at timestamp
+  updated_at timestamp
+}
+
+teams [icon: users, color: blue] {
+  id string pk
+  name string
+  createdBy string
+  created_at timestamp
+  updated_at timestamp
+}
+
+team_members {
+  id string pk
+  userId string 
+  teamId string 
+  role enum[owner, member]
+  created_at timestamp
+  updated_at timestamp
+  unique(userId,teamId)
+}
+
+projects [icon: home] {
+  id string pk
+  name string
+  description string
+  teamId string
+  createdBy string
+  created_at timestamp
+  updated_at timestamp
+}
+
+tasks [icon: folder] {
+  id string pk
+  title string
+  description string
+  projectId string
+  status enum[todo, in_progress, done]
+  priority enum[low, medium,high]
+  dueDate timestamp
+  created_at timestamp
+  updated_at timestamp
+}
+
+task_assignees{
+  id string pk
+  taskId string 
+  userId string
+}
+
+comments  {
+  id string pk
+  taskId string
+  userId string
+  content string
+  created_at timestamp
+  updated_at timestamp
+}
+
+activity_logs [icon: mail, color: green] {
+  id string pk
+  userId string
+  action enum[created_task, updated_status]
+  entityType enum[task, project]
+  entityId string
+  created_at timestamp
+  updated_at timestamp
+}
+
+invitations {
+  id string pk
+  email string
+  teamId string
+  status enum[pending, accepted]
+  created_at timestamp
+  updated_at timestamp
+  invitedBy string
+}
+
+users.id < teams.createdBy
+users.id <> team_members.userId
+teams.id <> team_members.teamId
+projects.createdBy > users.id
+projects.teamId <> teams.id
+task_assignees.taskId > tasks.id
+task_assignees.userId > users.id
+tasks.projectId > projects.id
+comments.userId > users.id
+comments.taskId > tasks.id
+activity_logs.userId > users.id
+invitations.teamId > teams.id
+invitations.invitedBy - users.id
